@@ -51,6 +51,7 @@ const EditarProducto = () => {
     <div className="container my-4">
       <h2 className="text-white">Editar Producto</h2>
       <form onSubmit={handleSubmit} className="bg-white shadow-sm rounded p-4">
+
         <div className="mb-3">
           <label htmlFor="producto" className="form-label">Nombre del Producto</label>
           <input
@@ -62,6 +63,7 @@ const EditarProducto = () => {
             required
           />
         </div>
+
         <div className="mb-3">
           <label htmlFor="descripcion" className="form-label">Descripción</label>
           <textarea
@@ -72,6 +74,7 @@ const EditarProducto = () => {
             required
           ></textarea>
         </div>
+
         <div className="mb-3">
           <label htmlFor="precio" className="form-label">Precio</label>
           <input
@@ -83,12 +86,12 @@ const EditarProducto = () => {
             required
           />
         </div>
+
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-primary">Actualizar Producto</button>
           <Link to="/admin/productos" className='btn btn-danger'>
               Cancelar
             </Link>
-        
         </div>
       </form>
     </div>

@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-
 const Productos = () => {
   const [productos, setProductos] = useState([]);
 
@@ -51,7 +50,6 @@ const Productos = () => {
     });
   };
 
-
   return (
     <div className='px-3'>
       <div className='container-fluid'>
@@ -62,7 +60,6 @@ const Productos = () => {
             <Link to="/admin/AgregarProducto" className='btn btn-primary'>
               Agregar Producto
             </Link>
-            
           </div>
         </div>
     
@@ -89,14 +86,11 @@ const Productos = () => {
                       <td>{producto.descripcion}</td>
                       <td>$ {producto.precio}</td>
                       <td>
-                      
-                        <Link to={`/admin/EditarProducto/${producto.id}`} className='btn btn-warning'>
+                        <Link to={`/admin/EditarProducto/${producto.id}`} className='btn btn-warning text-white'>
                           Editar
                         </Link>
-                   
                       </td>
                       <td>
-
                         <button className='btn btn-danger' onClick={() => eliminarProducto(producto.id)}>
                           Eliminar
                         </button>

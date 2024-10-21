@@ -27,9 +27,7 @@ const AdminInicio = () => {
           </div>
 
         </div>
-
       </div>
-      
     </div>
   )
 }

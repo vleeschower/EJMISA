@@ -1,0 +1,39 @@
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .font-weight-bold {
+    font-weight: 600;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  hr {
+    width: 80px;
+    height: 4px;
+    background-color: #a79e27;
+    border: none;
+    opacity: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    .lead {
+      font-size: 1rem;
+    }
+  }
+  

@@ -25,16 +25,9 @@ const AdminLayout = () => {
             </div>
           </div>
 
-
         </div>
     </div>
-
   )
-
-
-
-  
-
 };
 
 export default AdminLayout;
