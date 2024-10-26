@@ -23,6 +23,12 @@ const Dashboard = () => {
           <i className='bi bi-basket fs-3 me-3'></i>
           <span>Productos</span>
         </Link>
+
+        <Link to="/admin/categorias" className='list-group-item py-2'>
+          <i className='bi bi-tag fs-3 me-3'></i>
+          <span>Categorias</span>
+        </Link>
+
       </div>
 
     </div>

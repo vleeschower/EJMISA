@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../dbconeccion');
 
-// Ruta para obtener los productos
+// Ruta para obtener los productos con categoria
 router.get('/', (req, res) => {
-    const query = 'SELECT * FROM productos';
+    const query = 'SELECT p.id, p.producto, p.descripcion, p.precio, c.nombre FROM productos p JOIN categoria c ON p.id_categoria = c.id_categoria';
     db.query(query, (error, results) => {
         if (error) {
             return res.status(500).json({ error: error.message });
@@ -15,20 +15,20 @@ router.get('/', (req, res) => {
 
 // Ruta para agregar un producto
 router.post('/', (req, res) => {
-    const { producto, descripcion, precio } = req.body;
-    const query = 'INSERT INTO productos (producto, descripcion, precio) VALUES (?, ?, ?)';
-    db.query(query, [producto, descripcion, precio], (error, results) => {
+    const { producto, descripcion, precio, id_categoria } = req.body;
+    const query = 'INSERT INTO productos (producto, descripcion, precio, id_categoria) VALUES (?, ?, ?, ?)';
+    db.query(query, [producto, descripcion, precio, id_categoria], (error, results) => {
       if (error) {
         return res.status(500).json({ error: error.message });
       }
-      res.status(201).json({ id: results.insertId, producto, descripcion, precio });
+      res.status(201).json({ id: results.insertId, producto, descripcion, precio, id_categoria });
     });
 });
 
-// Ruta para obtener un producto por su ID
+// Ruta para obtener un producto por su ID y categoria
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    const query = 'SELECT * FROM productos WHERE id = ?';
+    const query = 'SELECT p.id, p.producto, p.descripcion, p.precio, p.id_categoria, c.nombre FROM productos p JOIN categoria c ON p.id_categoria = c.id_categoria WHERE p.id = ?';
   
     db.query(query, [id], (err, result) => {
       if (err) {
@@ -46,13 +46,13 @@ router.get('/:id', (req, res) => {
 // Ruta para editar un producto
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const { producto, descripcion, precio } = req.body;
-    const query = 'UPDATE productos SET producto = ?, descripcion = ?, precio = ? WHERE id = ?';
-    db.query(query, [producto, descripcion, precio, id], (error, results) => {
+    const { producto, descripcion, precio, id_categoria } = req.body;
+    const query = 'UPDATE productos SET producto = ?, descripcion = ?, precio = ?, id_categoria = ? WHERE id = ?';
+    db.query(query, [producto, descripcion, precio, id_categoria,id], (error, results) => {
       if (error) {
         return res.status(500).json({ error: error.message });
       }
-      res.json({ id, producto, descripcion, precio });
+      res.json({ id, producto, descripcion, precio, id_categoria });
     });
 });
 

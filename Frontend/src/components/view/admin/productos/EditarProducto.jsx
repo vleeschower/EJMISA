@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const EditarProducto = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
+  const [id_categoria, setIdCategoria] = useState('');
+  const [categorias, setCategorias] = useState([]); 
 
   // Obtener los datos del producto al cargar el componente
   useEffect(() => {
     axios.get(`http://localhost:3002/api/productos/${id}`)
       .then(response => {
-        const { producto, descripcion, precio } = response.data;
+        const { producto, descripcion, precio, id_categoria } = response.data;
         setProducto(producto);
         setDescripcion(descripcion);
         setPrecio(precio);
+        setIdCategoria(id_categoria);
       })
       .catch(error => {
         console.error('Error al obtener el producto:', error);
+      });
+
+      // Obtener las categorías disponibles
+      axios.get('http://localhost:3002/api/categorias')
+      .then(response => {
+        setCategorias(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener las categorías:', error);
       });
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const productoActualizado = { producto, descripcion, precio };
+    const productoActualizado = { producto, descripcion, precio, id_categoria };
 
     // Enviar los datos actualizados al backend
     axios.put(`http://localhost:3002/api/productos/${id}`, productoActualizado)
@@ -85,6 +96,24 @@ const EditarProducto = () => {
             onChange={(e) => setPrecio(e.target.value)}
             required
           />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="categoria" className="form-label">Categoría</label>
+          <select
+            className="form-control"
+            id="categoria"
+            value={id_categoria}
+            onChange={(e) => setIdCategoria(e.target.value)}
+            required
+          >
+
+          {categorias.map((categoria) => (
+          <option key={categoria.id_categoria} value={categoria.id_categoria}>
+            {categoria.nombre}
+          </option>
+          ))}
+          </select>
         </div>
 
         <div className="d-flex justify-content-between">

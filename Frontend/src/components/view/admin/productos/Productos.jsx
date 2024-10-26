@@ -69,10 +69,10 @@ const Productos = () => {
               <table className="table table-hover">
                 <thead className="table-dark">
                   <tr>
-                    <th>ID</th>
                     <th>Producto</th>
                     <th>Descripción</th>
                     <th>Precio</th>
+                    <th>Categoria</th>
                     <th>Editar</th>
                     <th>Borrar</th>
                   </tr>
@@ -81,10 +81,10 @@ const Productos = () => {
 
                   {productos.map((producto) => (
                     <tr key={producto.id}>
-                      <td>{producto.id}</td>
                       <td>{producto.producto}</td>
                       <td>{producto.descripcion}</td>
                       <td>$ {producto.precio}</td>
+                      <td>{producto.nombre}</td>
                       <td>
                         <Link to={`/admin/EditarProducto/${producto.id}`} className='btn btn-warning text-white'>
                           Editar
@@ -104,8 +104,8 @@ const Productos = () => {
           </div>
         </div>
 
-        </div>
       </div>
+    </div>
   )
 }
 

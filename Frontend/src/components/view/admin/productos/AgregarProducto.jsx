@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
 const AgregarProducto = () => {
   const [producto, setProducto] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
+  const [id_categoria, setIdCategoria] = useState('');
+  const [categorias, setCategorias] = useState([]);
+
+  //obtener categorias
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const response = await axios.get('http://localhost:3002/api/categorias');
+        setCategorias(response.data);
+      } catch (error) {
+        console.error('Error al obtener las categorías:', error);
+      }
+    };
+
+    fetchCategorias();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const nuevoProducto = { producto, descripcion, precio };
+    const nuevoProducto = { producto, descripcion, precio, id_categoria};
 
     // Enviar datos al backend
     axios.post('http://localhost:3002/api/productos', nuevoProducto)
@@ -30,6 +46,7 @@ const AgregarProducto = () => {
         setProducto('');
         setDescripcion('');
         setPrecio('');
+        setIdCategoria('');
       })
       .catch(error => {
         console.error('Error al agregar el producto:', error);
@@ -74,6 +91,24 @@ const AgregarProducto = () => {
             onChange={(e) => setPrecio(e.target.value)}
             required
           />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="categoria" className="form-label">Categoria</label>
+          <select
+            className="form-control"
+            id="categoria"
+            value={id_categoria}
+            onChange={(e) => setIdCategoria(e.target.value)}
+            required
+          >
+            <option value="" hidden>Seleccione una categoria</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.id_categoria} value={categoria.id_categoria}>
+                {categoria.nombre}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="d-flex justify-content-between">
