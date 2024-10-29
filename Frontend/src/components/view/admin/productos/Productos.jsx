@@ -13,7 +13,7 @@ const Productos = () => {
         setProductos(response.data);
       })
       .catch(error => {
-        console.error('Error fetching products:', error);
+        console.error('Error al obtener productos:', error);
       });
   }, []);
 
@@ -69,6 +69,7 @@ const Productos = () => {
               <table className="table table-hover">
                 <thead className="table-dark">
                   <tr>
+                    <th>Imagen</th>
                     <th>Producto</th>
                     <th>Descripción</th>
                     <th>Precio</th>
@@ -81,6 +82,13 @@ const Productos = () => {
 
                   {productos.map((producto) => (
                     <tr key={producto.id}>
+                      <td>
+                        <img 
+                          src={`http://localhost:3002/imagenes/${producto.imagen}`} 
+                          alt={producto.producto} 
+                          style={{ width: '100px', height: 'auto' }}
+                        />
+                      </td>
                       <td>{producto.producto}</td>
                       <td>{producto.descripcion}</td>
                       <td>$ {producto.precio}</td>

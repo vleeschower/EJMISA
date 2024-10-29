@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AgregarProducto = () => {
   const [producto, setProducto] = useState('');
@@ -9,6 +9,8 @@ const AgregarProducto = () => {
   const [precio, setPrecio] = useState('');
   const [id_categoria, setIdCategoria] = useState('');
   const [categorias, setCategorias] = useState([]);
+  const [imagen, setImagen] = useState(null);
+  const navigate = useNavigate();
 
   //obtener categorias
   useEffect(() => {
@@ -24,34 +26,43 @@ const AgregarProducto = () => {
     fetchCategorias();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const nuevoProducto = { producto, descripcion, precio, id_categoria};
+    const formData = new FormData();
+    formData.append('producto', producto);
+    formData.append('descripcion', descripcion);
+    formData.append('precio', precio);
+    formData.append('id_categoria', id_categoria);
+    if (imagen) formData.append('imagen', imagen);
 
-    // Enviar datos al backend
-    axios.post('http://localhost:3002/api/productos', nuevoProducto)
-      .then(response => {
-        console.log('Producto agregado:', response.data);
-
-        // Mostrar alerta de éxito
-        Swal.fire({
-            title: 'Éxito!',
-            text: 'Producto agregado con éxito.',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          });
-
-        // Limpiar el formulario después de agregar el producto
-        setProducto('');
-        setDescripcion('');
-        setPrecio('');
-        setIdCategoria('');
-      })
-      .catch(error => {
-        console.error('Error al agregar el producto:', error);
+    try {
+      await axios.post('http://localhost:3002/api/productos', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-    };
+
+      // Mostrar alerta de éxito
+      Swal.fire({
+        title: 'Éxito!',
+        text: 'Producto agregado con éxito.',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      });
+
+      // Limpiar el formulario después de agregar el producto
+      setProducto('');
+      setDescripcion('');
+      setPrecio('');
+      setIdCategoria('');
+      setImagen(null);
+
+      // Redirigir a la lista de productos
+      navigate('/admin/productos');
+
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+    }
+  };
 
   return (
     <div className="container my-4">
@@ -109,6 +120,17 @@ const AgregarProducto = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="imagen" className="form-label">Imagen</label>
+          <input
+            type="file"
+            className="form-control"
+            id="imagen"
+            onChange={(e) => setImagen(e.target.files[0])}
+            required
+          />
         </div>
 
         <div className="d-flex justify-content-between">

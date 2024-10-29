@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './contacto.css';
 import fotoCONTACTO from '../../images/publico/CONTACTO.jpg'
 
 const Contacto = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Desplazar a la parte superior
+  }, []); 
+
   return (
     <div className="container my-5">
-      <h2 className="text-auto mb-4">CONTACTO</h2>
+      <h2 className="text-auto mb-3">CONTACTO</h2>
       <hr className="mb-4" />
 
       <div className="row">

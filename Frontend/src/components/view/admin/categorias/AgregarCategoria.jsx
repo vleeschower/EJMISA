@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AgregarCategoria = () => {
     const [nombre, setNombre] = useState('');
+    const navigate = useNavigate();
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -26,6 +27,9 @@ const AgregarCategoria = () => {
   
           // Limpiar el formulario después de agregar la categoria
           setNombre('');
+
+          // Redirigir a la lista de categorias
+          navigate('/admin/categorias');
         })
         .catch(error => {
           console.error('Error al agregar la categoria:', error);

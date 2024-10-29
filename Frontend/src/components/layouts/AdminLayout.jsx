@@ -13,15 +13,14 @@ const AdminLayout = () => {
     <div className="container-fluid bg-dark min-vh-100">
         <div className="row">
           {toggle && (<div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <Dashboard />
+            <Dashboard handleLinkClick={Toggle} />
           </div>)}
 
-          {toggle && (<div className="col-4 col-md-2"></div>)}
 
-          <div className={toggle ? "col" : "col-12"}>
+          <div className={toggle ? "col-12 col-md-10 offset-md-2" : "col-12"}>
             <Nav Toggle={Toggle}/>
             <div className="container-fluid mt-3">
-              <Outlet Toggle={Toggle}/>
+              <Outlet />
             </div>
           </div>
 

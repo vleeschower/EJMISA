@@ -18,6 +18,10 @@ import EditarProducto from "./components/view/admin/productos/EditarProducto";
 import Categorias from "./components/view/admin/categorias/Categorias";
 import EditarCategoria from "./components/view/admin/categorias/EditarCategoria";
 import AgregarCategoria from "./components/view/admin/categorias/AgregarCategoria";
+import Usuarios from "./components/view/admin/usuarios/usuarios";
+import EditarUsuario from "./components/view/admin/usuarios/EditarUsuario";
+import AgregarAdmin from "./components/view/admin/usuarios/AgregarAdmin";
+import ProductosClientes from "./components/view/productos/productos";
 
 function App() {
 
@@ -30,9 +34,10 @@ function App() {
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/productos" element={<ProductosClientes />} />
       </Route>
 
-      <Route path="/admin" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       
       <Route element={<AdminLayout />}>
@@ -43,7 +48,9 @@ function App() {
         <Route path="/admin/categorias" element={<Categorias />} />
         <Route path="/admin/EditarCategoria/:id_categoria" element={<EditarCategoria />} />
         <Route path="/admin/AgregarCategoria" element={<AgregarCategoria />} />
-
+        <Route path="/admin/usuarios" element={<Usuarios />} />
+        <Route path="/admin/AgregarAdmin" element={<AgregarAdmin />} />
+        <Route path="/admin/EditarUsuario/:id_usuario" element={<EditarUsuario />} />
       </Route>
 
     </Routes>

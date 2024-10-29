@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const EditarProducto = () => {
   const { id } = useParams();
@@ -10,6 +10,8 @@ const EditarProducto = () => {
   const [precio, setPrecio] = useState('');
   const [id_categoria, setIdCategoria] = useState('');
   const [categorias, setCategorias] = useState([]); 
+  const [imagen, setImagen] = useState(null);
+  const navigate = useNavigate();
 
   // Obtener los datos del producto al cargar el componente
   useEffect(() => {
@@ -38,25 +40,39 @@ const EditarProducto = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const productoActualizado = { producto, descripcion, precio, id_categoria };
+    const formData = new FormData();
+    formData.append('producto', producto);
+    formData.append('descripcion', descripcion);
+    formData.append('precio', precio);
+    formData.append('id_categoria', id_categoria);
+    if (imagen) {
+      formData.append('imagen', imagen); // Agregar nueva imagen si se ha seleccionado
+    }
 
     // Enviar los datos actualizados al backend
-    axios.put(`http://localhost:3002/api/productos/${id}`, productoActualizado)
-      .then(response => {
-        console.log('Producto actualizado:', response.data);
-
-        // Mostrar alerta de éxito
-        Swal.fire({
-          title: 'Éxito!',
-          text: 'Producto actualizado con éxito.',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        });
-      })
-      .catch(error => {
-        console.error('Error al actualizar el producto:', error);
+    axios.put(`http://localhost:3002/api/productos/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => {
+      console.log('Producto actualizado:', response.data);
+      Swal.fire({
+        title: 'Éxito!',
+        text: 'Producto actualizado con éxito.',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      }).then((result) => {
+        if (result.isConfirmed){
+          navigate('/admin/productos');
+        }
       });
+    })
+    .catch(error => {
+      console.error('Error al actualizar el producto:', error);
+    });
   };
+
 
   return (
     <div className="container my-4">
@@ -114,6 +130,16 @@ const EditarProducto = () => {
           </option>
           ))}
           </select>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="imagen" className="form-label">Cambiar Imagen</label>
+          <input
+            type="file"
+            className="form-control"
+            id="imagen"
+            onChange={(e) => setImagen(e.target.files[0])}
+          />
         </div>
 
         <div className="d-flex justify-content-between">

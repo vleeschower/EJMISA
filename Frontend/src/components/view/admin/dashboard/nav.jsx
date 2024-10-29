@@ -5,9 +5,9 @@ import 'bootstrap/js/dist/collapse'
 const Nav = ({Toggle}) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
-      <div className='container-fluid'>
+      <div className='container-fluid d-flex align-items-center justify-content-between'>
 
-        <i className="navbar-brand bi bi-justify-left fs-4" onClick={Toggle}></i>
+        <i className="navbar-brand bi bi-justify-left fs-4" onClick={Toggle} style={{ cursor: 'pointer' }} ></i>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
           aria-expanded="false" aria-label="Toggle navigation"><i className='bi bi-justify fs-4'></i></button>
         <div className="collapse navbar-collapse" id="collapsibleNavId">

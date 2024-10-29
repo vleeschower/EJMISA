@@ -7,6 +7,11 @@ import logo from '../../images/publico/iconoEJMISA.png'
 export const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
+     // Función para manejar el clic en los enlaces y cerrar el menú
+     const handleNavLinkClick = () => {
+        setMenuOpen(false);
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-fluid">
@@ -29,6 +34,7 @@ export const Header = () => {
                             <NavLink 
                                 to="/inicio" 
                                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                onClick={handleNavLinkClick}
                             >
                                 Inicio
                             </NavLink>
@@ -37,16 +43,46 @@ export const Header = () => {
                             <NavLink 
                                 to="/nosotros" 
                                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                onClick={handleNavLinkClick}
                             >
                                 Nosotros
                             </NavLink>
                         </li>
+
                         <li className="nav-item">
                             <NavLink 
                                 to="/contacto" 
                                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                onClick={handleNavLinkClick}
                             >
                                 Contacto
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink 
+                                to="/productos" 
+                                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                onClick={handleNavLinkClick}
+                            >
+                                Productos
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink 
+                                to="/login" 
+                                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                onClick={handleNavLinkClick}
+                            >
+                                Iniciar Sesión
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink 
+                                to="/register" 
+                                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                onClick={handleNavLinkClick}
+                            >
+                                Registrarse
                             </NavLink>
                         </li>
                     </ul>

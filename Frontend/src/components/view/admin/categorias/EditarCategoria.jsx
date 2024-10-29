@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const EditarCategoria = () => {
     const { id_categoria } = useParams();
     const [nombre, setNombre] = useState('');
+    const navigate = useNavigate();
   
     // Obtener los datos de la categoria
     useEffect(() => {
@@ -35,6 +36,10 @@ const EditarCategoria = () => {
             text: 'Categoria actualizada con éxito.',
             icon: 'success',
             confirmButtonText: 'Ok'
+          }).then((result) => {
+            if (result.isConfirmed){
+              navigate('/admin/categorias');
+            }
           });
         })
         .catch(error => {

@@ -32,11 +32,65 @@ p.lead {
 }
   
 .btn-warning {
-    background-color: #a79e27;
+    background-color: #ffc107;
     border: none;
 }
   
 .btn-warning:hover {
     background-color: #001f3f;
+}
+
+hr {
+    width: 80%;
+    height: 4px;
+    background-color: #ffc107;
+    border: none;
+    opacity: 100%;
+}
+
+.hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent; 
+    margin: 0; 
+   
+}
+
+.hover-effect:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.452); 
+    border-color: #ffc107; 
+    margin: -2px;
+}
+
+.text-warning {
+    overflow: hidden; /* Oculta el texto que se desborda */
+    text-overflow: ellipsis; /* Muestra "..." si el texto es demasiado largo */
+}
+
+.position-relative {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Inicialmente oculto */
+    transition: opacity 0.3s ease; /* Transición suave */
+}
+
+.position-relative:hover .overlay {
+    opacity: 1; /* Mostrar el overlay al pasar el mouse */
+}
+
+.img-fluid {
+    width: 100%; /* Asegurarse de que la imagen ocupe todo el div */
+    height: auto; /* Mantener la proporción de la imagen */
 }
   
