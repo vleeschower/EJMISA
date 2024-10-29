@@ -1,37 +1,29 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from 'axios';
 
 const Register = () => {
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => { 
+  const createUser = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    try {
-      const response = await fetch('/api/registro', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nombre, correo, password }),
-      });
-
-      if (response.ok) {
-        navigate('/login');
-      } else {
-        console.error('Error al registrarse');
-      }
-    } catch (error) {
-      console.error('Error al conectar con el servidor:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    Axios.post('http://localhost:3002/api/usuarios/register', {
+      nombre: nombre,
+      correo: correo,
+      password: password
+    }).then(() => {
+      navigate('/');
+      setCorreo('');
+      setNombre('');
+      setPassword('');
+    }).catch((error) => {
+      console.error("Error al registrar el usuario:", error);
+    });
   };
 
   return (
@@ -40,7 +32,7 @@ const Register = () => {
         <div className="col-md-6 col-lg-4 mx-auto">
           <div className="card shadow-lg p-4">
             <h3 className="text-center mb-4">Registrarse</h3>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={createUser}>
               <div className="mb-3">
                 <label htmlFor="nombre" className="form-label">Nombre</label>
                 <input
@@ -77,10 +69,13 @@ const Register = () => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
-                {isLoading ? 'Cargando...' : 'Registrarse'}
+              <button type="submit" className="btn btn-primary w-100">
+                Registrarse
               </button>
             </form>
+            <div className="mt-3 text-center">
+              <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+            </div>
           </div>
         </div>
       </div>
@@ -89,3 +84,4 @@ const Register = () => {
 };
 
 export default Register;
+
