@@ -2,52 +2,50 @@ const express = require('express');
 const router = express.Router();
 const db = require('../dbconeccion');
 
-//cliente:
-//para seguridad de la contraseña que ingrese 
-router.post('/register', async (req, res) => {
-    const { nombre, correo, password } = req.body;
+// Para registro 
+router.post('/register', (req, res) => {
+    const setNombre = req.body.nombre;
+    const setCorreo = req.body.correo;
+    const setPassword = req.body.password;
 
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const id_rol = 2;
+    const SQL = 'INSERT INTO usuarios (nombre, correo, password, id_rol) VALUES (?, ?, ?, ?)';
+    const Values = [setNombre, setCorreo, setPassword, 2]; 
 
-        db.query(
-            'INSERT INTO usuarios (nombre, correo, password, id_rol) VALUES (?, ?, ?, ?)',
-            [nombre, correo, hashedPassword, id_rol],
-            (error, results) => {
-                if (error) return res.status(500).json({ error: 'Error en el registro, verifique sus datos' });
-                res.status(201).json({ texto: 'Registro exitoso' });
-            }
-        );
-    } catch (error) {
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
+    db.query(SQL, Values, (err, results) => {
+        if (err) {
+            res.send(err);
+        } else {
+            console.log('Registro de usuario con éxito');
+            res.send({ message: 'Usuario agregado', role: 'client' });
+        }
+    });
 });
 
-//para administradores y clientes con la validación de rol parte de login
-router.post('/login', async (req, res) => {
-    const { correo, password } = req.body;
-    const id_rol = 1
+// para login
+router.post('/login', (req, res) => {
+    const setloginCorreo = req.body.logincorreo;
+    const setloginPassword = req.body.loginpassword;
 
-    db.query(
-        'SELECT * FROM usuarios WHERE correo = ?',
-        [correo],
-        async (error, results) => {
-            if (error || results.length === 0) return res.status(401).json({ error: 'Usuario no encontrado' });
+    const SQL = 'SELECT * FROM usuarios WHERE correo = ? AND password = ?';
+    const Values = [setloginCorreo, setloginPassword]; 
 
-            const usuario = results[0];
-            const passwordCoincide = await bcrypt.compare(password, usuario.password);
+    db.query(SQL, Values, (err, results) => {
+        if (err) {
+            res.send({ error: err });
+        } else if (results.length > 0) {
+            const user = results[0]; 
+            if (user.id_rol === 1) {
+                res.send({ message: 'Bienvenido, ah ingresado como administrador', role: 'admin', user: user });
 
-            if (passwordCoincide) {
-                res.status(200).json({
-                    texto: 'Ingreso exitoso',
-                    usuario: { id: usuario.id_usuario, nombre: usuario.nombre, rol: usuario.id_rol }
-                });
+            } else if (user.id_rol === 2) {
+                res.send({ message: 'Bienvenido, ah ingresado como cliente', role: 'client', user: user });
             } else {
-                res.status(401).json({ error: 'Ingreso incorrecto' });
+                res.send({ message: 'Rol no identificado' });
             }
+        } else {
+            res.send({ message: 'Usuario no encontrado' });
         }
-    );
+    });
 });
 
 module.exports = router;
