@@ -21,7 +21,6 @@ const Contacto = () => {
             921 225 5429
           </p>
           <p>Sera un gusto atenderle.</p>
-
           <p>También puede hacerlo mediante los correos:</p>
           <p className="font-weight-bold">
             paty.aguilar@ejmisa.com.mx<br />
@@ -34,7 +33,7 @@ const Contacto = () => {
       {/* Imagen */}
       <div className="row my-5">
         <div className="col-md-6 mx-auto">
-          <img src={fotoCONTACTO} alt="Contacto" className="img-fluid rounded shadow-sm" />
+          <img src={fotoCONTACTO} alt="Contacto" className="img-fluid rounded shadow" />
         </div>
       </div>
     </div>

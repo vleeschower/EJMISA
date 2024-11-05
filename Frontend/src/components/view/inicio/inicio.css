@@ -13,7 +13,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.637); /* opacidad */
+    background-color: rgba(0, 0, 0, 0.637);
     z-index: 2;
 }
 
@@ -48,11 +48,36 @@ hr {
     opacity: 100%;
 }
 
+.productos-c {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 -10px;
+}
+  
+.producto-c {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+  
+.producto-c img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
 .hover-effect {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid transparent; 
+    border: 2px solid #00000014; 
     margin: 0; 
-   
 }
 
 .hover-effect:hover {
@@ -62,22 +87,13 @@ hr {
     margin: -2px;
 }
 
-.text-warning {
-    overflow: hidden; /* Oculta el texto que se desborda */
-    text-overflow: ellipsis; /* Muestra "..." si el texto es demasiado largo */
-}
-
-.position-relative {
-    position: relative;
-}
-
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,7 +106,7 @@ hr {
 }
 
 .img-fluid {
-    width: 100%; /* Asegurarse de que la imagen ocupe todo el div */
-    height: auto; /* Mantener la proporción de la imagen */
+    width: 100%;
+    height: auto; 
 }
   

@@ -28,7 +28,7 @@ const Nosotros = () => {
           {/* Imagen */}
           <div className="row my-5">
             <div className="col-md-6 mx-auto">
-              <img src={foto2} alt="Contacto" className="img-fluid rounded shadow-sm" />
+              <img src={foto2} alt="Contacto" className="img-fluid rounded shadow" />
             </div>
           </div>
           <p className="text-secondary">Estamos ubicados en Coatzacoalcos, Veracruz y nos dedicamos a la distribución y comercialización de espárragos, tornillos, tuercas, arandelas planas, arandela de presión, pijas, tuercas de seguridad, empaques, lámina de neopreno, y demás materiales industriales.</p>
@@ -37,7 +37,7 @@ const Nosotros = () => {
 
       <div className="row mt-5 justify-content-center">
         <div className="col-lg-10 col-md-12">
-          <table className="table table-bordered text-center table-hover w-100">
+          <table className="table table-bordered table-success text-center table-hover w-100">
             <tbody>
               <tr>
                 <td className="p-3 fw-bold">NUESTRO COMPROMISO CON TODOS NUESTROS CLIENTES ES, OFRECERLES LA MEJOR CALIDAD Y SERVICIO A PRECIOS COMPETITIVOS.</td>
@@ -52,20 +52,20 @@ const Nosotros = () => {
 
       <div className='container mt-5'>
         <div className='row align-items-center'>
-          <div className='col-12 col-md-6 text-start'>
+          <div className='col-12 col-md-6 text-start order-md-1'>
             <h2>EJMISA</h2>
             <hr className='mb-5'/>
-            <p className="text-secondary">Con nosotros encontraras: Espárragos, tornillos, tuercas, arandela plana, arandela de presión, pijas, tuercas de seguridad en acero inoxidable, empaques, cintas de teflón, cinta de asbesto , cinta de fibra de vidrio, empaque cuadrado tipo buna, empaque cuadrado tipo viton, empaque cuadrado de epdm, orings de neopreno, viton epdm nitrilo, etc. redondos de neopreno, viton, epdm, nitrilo, etc. empaquetadura sección cuadrada de grafito, empaquetadura sección cuadrada de teflón, empaquetadura sección cuadrada de kevlar, lamina de neopreno, lamina de nitrilo, lamina de viton, lamina de hule sbr, lamina de asbesto grafitado, lamina libre de asbesto, lamina con fibra de carbón, loctite, taquetes de expansión, clavos, pijas.</p>
+            <p className="text-secondary">
+            Ofrecemos una amplia variedad de productos, incluyendo espárragos, tornillos, tuercas, arandelas, empaques, cintas de teflón, materiales de neopreno, viton, epdm y laminas, así como taquetes de expansión y clavos.</p>
           </div>
-          <div className='col-12 col-md-6'>
-            <div className=' p-4 mt-5 bg-body'>
-              <img src={tornilleria} alt="tornilleria" className='img-fluid' />
+          <div className='col-12 col-md-6 order-md-2'>
+            <div className=' p-4 bg-body'>
+              <img src={tornilleria} alt="tornilleria" className='img-fluid shadow' />
             </div>
           </div>
         </div>
       </div>
 
-      
     </div>
   );
 }

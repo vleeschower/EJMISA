@@ -22,7 +22,7 @@ const Inicio = () => {
       {/* Sección con imagen de fondo */}
       <div
         className="position-relative hero-section text-white text-center"
-        style={{ backgroundImage: `url(${fotoEJMISA})` }}
+        style={{ backgroundImage: `url(${fotoEJMISA})`, maxHeight: '600px' }}
       >
         <div className="d-flex flex-column justify-content-center align-items-center h-100">
           <h1 className="display-1 fw-bold">EJMISA</h1>
@@ -35,30 +35,26 @@ const Inicio = () => {
         <h2>Conocemos las necesidades de la industria y por ello contamos con el inventario necesario para satisfacerlas y atenderlas.</h2>
         <hr className='mb-5 mx-auto'/>
         
-        <div className='row'>
-          <div className='col-12 col-md-4 mb-3'>
-            <div className='shadow p-4 mb-4 bg-body rounded hover-effect'>
-              <img src={fotoTornillo} alt="Tornilleria" className='img-fluid' />
-              <h2 className='text-warning my-3'>TORNILLERÍA</h2>
-              <p className="text-secondary">Arandela plana, de presión, pijas, tuercas, etc.</p>
-            </div>
+        <div className='productos-c'>
+          
+          <div className='producto-c hover-effect my-4 mx-2 shadow'>
+            <img src={fotoTornillo} alt="Tornilleria" />
+            <h2 className='text-warning p-3'>TORNILLERÍA</h2>
+            <p className="text-secondary">Arandela plana, de presión, pijas, tuercas, etc.</p>
           </div>
-
-          <div className='col-12 col-md-4 mb-3'>
-            <div className='shadow p-4 mb-4 bg-body rounded hover-effect'>
-              <img src={fotoEspa} alt="espárragos" className='img-fluid' />
-              <h2 className='text-warning my-3'>ESPÁRRAGOS</h2>
-              <p className="text-secondary">Grado B7, B16, tipo 304, 316, acero inoxidable y mas.</p>
-            </div>
+        
+          <div className='producto-c hover-effect my-4 mx-2 shadow'>
+            <img src={fotoEspa} alt="espárragos" />
+            <h2 className='text-warning p-3'>ESPÁRRAGOS</h2>
+            <p className="text-secondary">Grado B7, B16, tipo 304, 316, acero inoxidable y mas.</p>
           </div>
-
-          <div className='col-12 col-md-4 mb-3'>
-            <div className='shadow p-4 mb-4 bg-body rounded hover-effect'>
-              <img src={fotoJunta} alt="juntas espirometálicas" className='img-fluid' />
-              <h2 className='text-warning my-3'>JUNTAS ESPIROMETÁLICAS</h2>
-              <p className="text-secondary">Amplio surtido todo tipo de Juntas</p>
-            </div>
+          
+          <div className='producto-c hover-effect my-4 mx-2 shadow'>
+            <img src={fotoJunta} alt="juntas espirometálicas" />
+            <h2 className='text-warning p-3'>JUNTAS ESPIROMETÁLICAS</h2>
+            <p className="text-secondary">Amplio surtido todo tipo de Juntas</p>
           </div>
+          
         </div>
       </div>
 
@@ -70,8 +66,8 @@ const Inicio = () => {
             <p className="text-secondary">ESPARRAGOS, JUNTAS Y MATERIALES INDUSTRIALES, S.A. Nos dedicamos a la distribución y comercialización de espárragos, tornillos, tuercas, arandelas planas, arandela de presión, pijas, tuercas de seguridad, empaques, lámina de neopreno, y demás materiales industriales.</p>
           </div>
           <div className='col-12 col-md-6'>
-            <div className=' p-4 my-5 bg-body'>
-              <img src={foto2} alt="juntas espirometálicas" className='img-fluid' />
+            <div className=' p-4 bg-body'>
+              <img src={foto2} alt="juntas espirometálicas" className='img-fluid rounded shadow' />
             </div>
           </div>
         </div>
@@ -86,7 +82,7 @@ const Inicio = () => {
         <div className='row justify-content-center'>
           <div className='col-12 col-md-3 mb-4'>
             <div className='position-relative'>
-              <img src={neopreno} alt="neopreno" className='img-fluid hover-effect' />
+              <img src={neopreno} alt="neopreno" className='img-fluid hover-effect shadow' />
               <div className='overlay'>
                 <h2 className='text-white'>NEOPRENO</h2>
               </div>
@@ -95,7 +91,7 @@ const Inicio = () => {
 
           <div className='col-12 col-md-3 mb-4'>
             <div className='position-relative'>
-              <img src={laminas} alt="laminas" className='img-fluid hover-effect' />
+              <img src={laminas} alt="laminas" className='img-fluid hover-effect shadow' />
               <div className='overlay'>
                 <h2 className='text-white'>LAMINAS LIBRES DE ASBESTO</h2>
               </div>
@@ -104,7 +100,7 @@ const Inicio = () => {
 
           <div className='col-12 col-md-3 mb-4'>
             <div className='position-relative'>
-              <img src={tuerca} alt="tuerca" className='img-fluid hover-effect' />
+              <img src={tuerca} alt="tuerca" className='img-fluid hover-effect shadow' />
               <div className='overlay'>
                 <h2 className='text-white'>TUERCAS</h2>
               </div>
@@ -128,19 +124,19 @@ const Inicio = () => {
       <div className="container text-center my-5">
         <div className="row">
           <div className="col-12 col-md-4 mb-4 mb-md-0">
-            <Link to="/contacto" className="text-decoration-none text-dark d-flex flex-column align-items-center rounded hover-effect">
+            <Link to="/contacto" className="text-decoration-none text-dark d-flex flex-column align-items-center rounded hover-effect shadow">
               <i className="bi bi-envelope fs-3 me-2"></i>
               <p>EMAIL</p>
             </Link>
           </div>
           <div className="col-12 col-md-4 mb-4 mb-md-0">
-            <Link to="/contacto" className="text-decoration-none text-dark d-flex flex-column align-items-center rounded hover-effect">
+            <Link to="/contacto" className="text-decoration-none text-dark d-flex flex-column align-items-center rounded hover-effect shadow">
               <i className="bi bi-geo-alt fs-3 me-2"></i>
               <p>DIRECCIÓN</p>
             </Link>
           </div>
           <div className="col-12 col-md-4">
-            <Link to="/contacto" className="text-decoration-none text-dark d-flex flex-column align-items-center rounded hover-effect">
+            <Link to="/contacto" className="text-decoration-none text-dark d-flex flex-column align-items-center rounded hover-effect shadow">
               <i className="bi bi-telephone fs-3 me-2"></i>
               <p>TELÉFONO</p>
             </Link>

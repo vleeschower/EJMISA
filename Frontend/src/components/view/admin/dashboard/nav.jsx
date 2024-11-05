@@ -15,9 +15,8 @@ const Nav = ({Toggle}) => {
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle text_white" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">EJMISA</a>
               <div className="dropdown-menu" aria-labelledby="dropdownId">
-                <a className="dropdown-item" href="#">Perfil</a>
-                <a className="dropdown-item" href="#">Configuración</a>
-                <a className="dropdown-item" href="#">Salir</a>
+                <a className="dropdown-item" href="#"><i className="bi bi-person"></i> Perfil</a>
+                <a className="dropdown-item" href="#"><i className="bi bi-box-arrow-right"></i> Salir</a>
               </div>
             </li>
           </ul>
