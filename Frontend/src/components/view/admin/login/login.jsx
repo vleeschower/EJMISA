@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios';
+import './login.css';
 
 const Login = () => {
   const [logincorreo, setLoginCorreo] = useState('');
@@ -18,11 +19,21 @@ const Login = () => {
       logincorreo: logincorreo,
       loginpassword: loginpassword
     }).then((response) => {
-      if (response.data.message || logincorreo === '' || loginpassword === '') {
+      if (response.data.message === 'Usuario no encontrado' || logincorreo === '' || loginpassword === '') {
         setLoginStatus('Usuario no existente');
       } else {
-        navigate('/dashboard');
+        const role = response.data.role;
+        
+        if (role === 'admin') {
+          navigate('/admin/inicio'); 
+        } else if (role === 'client') {
+          navigate('/inicio'); 
+        }
       }
+      
+      onSubmit();
+    }).catch((error) => {
+      console.error("Error en el login:", error);
     });
   };
 
@@ -34,7 +45,7 @@ const Login = () => {
       }, 400);
     }
   }, [loginStatus]);
-
+//para el envio
   const onSubmit = () => {
     setLoginCorreo('');
     setLoginPassword('');
@@ -83,18 +94,6 @@ const Login = () => {
             <div className="mt-3 text-center">
               <p>¿No tienes una cuenta? <a href="/register">Registrarse</a></p>
             </div>
-            <div className="mb-3">
-                <label htmlFor="logincorreo" className="form-label">Correo</label>
-                <input
-                  type="email"
-                  id="logincorreo"
-                  value={logincorreo}
-                  onChange={(e) => setLoginCorreo(e.target.value)}
-                  className="form-control"
-                  placeholder="Ingrese su correo"
-                  required
-                />
-              </div>
           </div>
         </div>
       </div>
@@ -103,3 +102,4 @@ const Login = () => {
 };
 
 export default Login;
+

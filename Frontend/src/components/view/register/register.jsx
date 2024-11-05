@@ -7,22 +7,24 @@ const Register = () => {
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
-  const createUser = (e) => {
+  const registerUser = (e) => {
     e.preventDefault();
 
     Axios.post('http://localhost:3002/api/usuarios/register', {
       nombre: nombre,
       correo: correo,
       password: password
-    }).then(() => {
-      navigate('/');
-      setCorreo('');
-      setNombre('');
-      setPassword('');
+    }).then((response) => {
+      if (response.data.message === 'Usuario agregado') {
+        alert('Registro exitoso, ahora puedes iniciar sesión');
+        navigate('/login'); 
+      } else {
+        alert('Error al registrar el usuario');
+      }
     }).catch((error) => {
-      console.error("Error al registrar el usuario:", error);
+      console.error('Error en el registro:', error);
     });
   };
 
@@ -32,7 +34,7 @@ const Register = () => {
         <div className="col-md-6 col-lg-4 mx-auto">
           <div className="card shadow-lg p-4">
             <h3 className="text-center mb-4">Registrarse</h3>
-            <form onSubmit={createUser}>
+            <form onSubmit={registerUser}>
               <div className="mb-3">
                 <label htmlFor="nombre" className="form-label">Nombre</label>
                 <input
@@ -73,9 +75,6 @@ const Register = () => {
                 Registrarse
               </button>
             </form>
-            <div className="mt-3 text-center">
-              <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
-            </div>
           </div>
         </div>
       </div>
@@ -84,4 +83,3 @@ const Register = () => {
 };
 
 export default Register;
-
