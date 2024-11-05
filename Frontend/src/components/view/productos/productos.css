@@ -1,0 +1,149 @@
+/* Contenedor principal de productos */
+.productos-container {
+    display: flex;
+    flex-wrap: wrap; /*Evita que las imagenes tengan multiples columnas de filas*/
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+  
+/* Tarjeta de cada producto */
+.producto-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    max-width: 200px; /* Limita el ancho máximo */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.producto-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para la imagen de producto */
+.producto-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+/* Texto del nombre del producto */
+.producto-card h4 {
+    font-size: 1.2em;
+    color: #ffc107;
+    margin: 10px 0;
+}
+
+/* Texto del precio y categoría */
+.producto-card p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Contenedor para centrar los botones y que tengan espacio entre sí */
+.botones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Estilos para los botones de agregar y quitar */
+.boton-agregar,
+.boton-quitar {
+    width: 80px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Estilo y color para el botón de agregar */
+.boton-agregar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+.boton-agregar:hover {
+    background-color: #45a049; /* Verde más oscuro */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+}
+
+/* Estilo y color para el botón de quitar */
+.boton-quitar {
+    background-color: #E53935; /* Rojo */
+    color: white;
+}
+
+.boton-quitar:hover {
+    background-color: #d32f2f; /* Rojo más oscuro */
+    transform: scale(1.05);
+}
+
+/* Efecto de active para simular que se presiona el botón */
+.boton-agregar:active,
+.boton-quitar:active {
+    transform: scale(0.95); /* Reduce ligeramente el tamaño al hacer clic */
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030; /* Asegúrate de que esté sobre otros elementos */
+  }
+
+  .fixed-bottom {
+    position: fixed;
+    bottom: 20px; /* Distancia del botón desde la parte inferior */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Ajustar el centrado */
+    z-index: 1030; /* Asegúrate de que esté sobre otros elementos */
+    background-color: white; /* Fondo blanco para el cuadro */
+    border: 1px solid #007bff; /* Borde del cuadro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 300px; /* Ancho fijo del cuadro */
+    display: flex; /* Para alinear el contenido */
+    justify-content: space-between; /* Espacio entre total y botón */
+    align-items: center; /* Centrar verticalmente */
+  }
+  
+  .comprar-container {
+    width: 100%; /* Ancho total para ocupar el espacio del contenedor */
+    display: flex;
+    justify-content: space-between; /* Espacio entre el total y el botón */
+    align-items: center; /* Centrar verticalmente */
+  }
+
+  
+  /* Opción 1: Centrado horizontal y vertical usando Flexbox */
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 1.2rem;
+  }
+  
+  /* Opción 2: Solo centrado horizontal */
+  .alert {
+    text-align: center;
+    margin: 0 auto;
+    width: 50%; /* Ajusta el ancho según lo necesites */
+    padding: 15px;
+    font-size: 1.2rem;
+  }
+  
