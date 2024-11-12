@@ -6,10 +6,10 @@ const ProductosClientes = () => {
   const [productosSeleccionados, setProductosSeleccionados] = useState({});
   const [total, setTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [compraExitosa, setCompraExitosa] = useState(false); // Estado para mostrar mensaje de éxito
+  const [compraExitosa, setCompraExitosa] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Desplazar a la parte superior
+    window.scrollTo(0, 0);
     fetchProductos();
   }, []);
 
@@ -66,15 +66,37 @@ const ProductosClientes = () => {
     console.log('Usuario cerró sesión');
   };
 
-  const handleBuy = () => {
+  const handleBuy = async () => {
     if (total === 0) {
       alert('¡No has agregado ningún producto al carrito!');
       return;
     }
-    
-    setCompraExitosa(true); // Muestra el mensaje de compra exitosa
-    setProductosSeleccionados({});
-    setTotal(0);
+
+    try {
+      const response = await fetch('http://localhost:3002/api/compras/comprar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          usuarioId: 1, // Ajusta el ID del usuario según tu lógica de autenticación
+          productosSeleccionados,
+          total,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.message === 'Compra registrada exitosamente') {
+        setCompraExitosa(true);
+        setProductosSeleccionados({});
+        setTotal(0);
+      } else {
+        alert('Hubo un problema al realizar la compra');
+      }
+    } catch (error) {
+      console.error('Error al realizar la compra:', error);
+      alert('Hubo un problema al realizar la compra');
+    }
   };
 
   return (
@@ -85,7 +107,11 @@ const ProductosClientes = () => {
       <button onClick={handleLogin} className="btn btn-success mx-1">Comenzar Compra</button>
       <button onClick={handleLogout} className="btn btn-danger mx-1">Parar Compra</button>
 
-      {compraExitosa && <div className="alert alert-success">¡Compra exitosa!</div>}
+      {compraExitosa && (
+        <div className="alert alert-success text-center">
+          ¡Compra exitosa!
+        </div>
+      )}
 
       <div className="productos-container">
         {productos.map((producto) => (
