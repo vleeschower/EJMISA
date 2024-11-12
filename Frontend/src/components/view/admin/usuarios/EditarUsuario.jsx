@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link, useParams, useNavigate } from 'react-router-dom';
@@ -39,6 +39,7 @@ const EditarUsuario = () => {
             title: 'Éxito!',
             text: 'Usuario actualizado con éxito.',
             icon: 'success',
+            confirmButtonColor: '#30449e',
             confirmButtonText: 'Ok'
           }).then((result) => {
             if (result.isConfirmed){

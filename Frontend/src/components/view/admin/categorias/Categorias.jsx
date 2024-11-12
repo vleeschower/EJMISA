@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -26,7 +26,7 @@ const Categorias = () => {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#30449e',
         confirmButtonText: 'Sí, eliminarlo!',
         cancelButtonText: 'Cancelar'
       }).then((result) => {

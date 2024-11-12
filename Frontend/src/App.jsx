@@ -24,8 +24,10 @@ import AgregarAdmin from "./components/view/admin/usuarios/AgregarAdmin";
 import ProductosClientes from "./components/view/productos/productos";
 import Tuercas from "./components/view/productos/Tuercas";
 import ConfirmacionCompra from "./components/view/productos/ConfirmacionCompra";
+import Perfil from "./components/view/admin/perfil/perfil";
+import Cliente from "./components/view/cliente/cliente";
 
-
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
@@ -37,27 +39,26 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/productos" element={<ProductosClientes />} />
-          {/* <Route path="/productos/tuercas" element={<Tuercas categoriaId="tuercas" />} /> //navegar en otra pagina  */}
-          <Route path="/productos/confirmar-compra" element={<ConfirmacionCompra categoriaId="ConfirmacionCompra" />} /> //navegar en otra pagina 
-          // Dentro de tu componente App en las rutas
-          <Route path="/tuercas" element={<Tuercas />} /> //pagina siguiente
-
+          <Route path="/productos/confirmar-compra" element={<ConfirmacionCompra categoriaId="ConfirmacionCompra" />} /> 
+          <Route path="/tuercas" element={<Tuercas />} />
+          <Route path="/perfil" element={<Cliente /> } />
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
         <Route element={<AdminLayout />}>
-          <Route path="/admin/inicio" element={<AdminInicio />} />
-          <Route path="/admin/productos" element={<Productos />} />
-          <Route path="/admin/AgregarProducto" element={<AgregarProducto />} />
-          <Route path="/admin/EditarProducto/:id" element={<EditarProducto />} />
-          <Route path="/admin/categorias" element={<Categorias />} />
-          <Route path="/admin/EditarCategoria/:id_categoria" element={<EditarCategoria />} />
-          <Route path="/admin/AgregarCategoria" element={<AgregarCategoria />} />
-          <Route path="/admin/usuarios" element={<Usuarios />} />
-          <Route path="/admin/AgregarAdmin" element={<AgregarAdmin />} />
-          <Route path="/admin/EditarUsuario/:id_usuario" element={<EditarUsuario />} />
+          <Route path="/admin/inicio" element={ <ProtectedRoute><AdminInicio /></ProtectedRoute>} />
+          <Route path="/admin/productos" element={<ProtectedRoute><Productos /></ProtectedRoute>} />
+          <Route path="/admin/AgregarProducto" element={<ProtectedRoute><AgregarProducto /></ProtectedRoute>} />
+          <Route path="/admin/EditarProducto/:id" element={<ProtectedRoute><EditarProducto /></ProtectedRoute>} />
+          <Route path="/admin/categorias" element={<ProtectedRoute><Categorias /></ProtectedRoute>} />
+          <Route path="/admin/EditarCategoria/:id_categoria" element={<ProtectedRoute><EditarCategoria /></ProtectedRoute>} />
+          <Route path="/admin/AgregarCategoria" element={<ProtectedRoute><AgregarCategoria /></ProtectedRoute>} />
+          <Route path="/admin/usuarios" element={<ProtectedRoute><Usuarios /></ProtectedRoute>} />
+          <Route path="/admin/AgregarAdmin" element={<ProtectedRoute><AgregarAdmin /></ProtectedRoute>} />
+          <Route path="/admin/EditarUsuario/:id_usuario" element={<ProtectedRoute><EditarUsuario /></ProtectedRoute>} />
+          <Route path="/admin/Perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
         </Route>
       </Routes>
     </div>
