@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import './contacto.css';
 import fotoCONTACTO from '../../images/publico/CONTACTO.jpg'
 

@@ -1,4 +1,3 @@
-/* Contenedor principal de productos */
 .productos-container {
     display: flex;
     flex-wrap: wrap; /*Evita que las imagenes tengan multiples columnas de filas*/
@@ -68,30 +67,30 @@
 
 /* Estilo y color para el botón de agregar */
 .boton-agregar {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4CAF50;
     color: white;
 }
 
 .boton-agregar:hover {
-    background-color: #45a049; /* Verde más oscuro */
-    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+    background-color: #45a049; 
+    transform: scale(1.05); 
 }
 
 /* Estilo y color para el botón de quitar */
 .boton-quitar {
-    background-color: #E53935; /* Rojo */
+    background-color: #E53935;
     color: white;
 }
 
 .boton-quitar:hover {
-    background-color: #d32f2f; /* Rojo más oscuro */
+    background-color: #d32f2f;
     transform: scale(1.05);
 }
 
 /* Efecto de active para simular que se presiona el botón */
 .boton-agregar:active,
 .boton-quitar:active {
-    transform: scale(0.95); /* Reduce ligeramente el tamaño al hacer clic */
+    transform: scale(0.95); 
 }
 
 .fixed-bottom {
@@ -99,7 +98,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1030; /* Asegúrate de que esté sobre otros elementos */
+    z-index: 1030; /* Sobre otros elementos */
   }
 
   .fixed-bottom {
@@ -108,42 +107,82 @@
     left: 50%; /* Centrar horizontalmente */
     transform: translateX(-50%); /* Ajustar el centrado */
     z-index: 1030; /* Asegúrate de que esté sobre otros elementos */
-    background-color: white; /* Fondo blanco para el cuadro */
-    border: 1px solid #007bff; /* Borde del cuadro */
+    background-color:#001f3f;; /* Fondo blanco para el cuadro */
+    border: none;
     border-radius: 8px; /* Bordes redondeados */
     padding: 10px; /* Espaciado interno */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     width: 300px; /* Ancho fijo del cuadro */
     display: flex; /* Para alinear el contenido */
-    justify-content: space-between; /* Espacio entre total y botón */
+    justify-content: center; /* Espacio entre total y botón */
     align-items: center; /* Centrar verticalmente */
-  }
-  
-  .comprar-container {
-    width: 100%; /* Ancho total para ocupar el espacio del contenedor */
-    display: flex;
-    justify-content: space-between; /* Espacio entre el total y el botón */
-    align-items: center; /* Centrar verticalmente */
+    font-size: 16px;
   }
 
-  
-  /* Opción 1: Centrado horizontal y vertical usando Flexbox */
-.alert {
+.fixed-bottom:hover {
+    background-color: #ffc107; 
+}
+
+.fixed-bottom:focus {
+    outline: none; 
+}
+
+  .comprar-container {
+    width: 100%;
     display: flex;
+    justify-content: space-between; 
+    align-items: center;
+  }
+
+  .cart-modal {
+    position: fixed;
+    top: 20%;
+    right: 20px;
+    width: 380px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+  }
+  .cart-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .close-cart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #e74c3c;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .cart-item button {
+    background-color: #001f3f;;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 5px;
+    min-width: 35px; /* Asegura que los botones tengan un ancho mínimo */
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    margin-top: 20px;
-    padding: 15px;
-    font-size: 1.2rem;
+  }
+
+  .cart-item button:hover {
+    background-color: #ffc107;
   }
   
-  /* Opción 2: Solo centrado horizontal */
-  .alert {
-    text-align: center;
-    margin: 0 auto;
-    width: 50%; /* Ajusta el ancho según lo necesites */
-    padding: 15px;
-    font-size: 1.2rem;
-  }
   

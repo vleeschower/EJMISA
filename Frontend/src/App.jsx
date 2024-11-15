@@ -22,10 +22,10 @@ import Usuarios from "./components/view/admin/usuarios/usuarios";
 import EditarUsuario from "./components/view/admin/usuarios/EditarUsuario";
 import AgregarAdmin from "./components/view/admin/usuarios/AgregarAdmin";
 import ProductosClientes from "./components/view/productos/productos";
-import Tuercas from "./components/view/productos/Tuercas";
 import ConfirmacionCompra from "./components/view/productos/ConfirmacionCompra";
 import Perfil from "./components/view/admin/perfil/perfil";
 import Cliente from "./components/view/cliente/cliente";
+import Pedidos from "./components/view/admin/pedidos/pedidos";
 
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
@@ -39,8 +39,7 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/productos" element={<ProductosClientes />} />
-          <Route path="/productos/confirmar-compra" element={<ConfirmacionCompra categoriaId="ConfirmacionCompra" />} /> 
-          <Route path="/tuercas" element={<Tuercas />} />
+          <Route path="/productos/confirmar-compra" element={<ConfirmacionCompra categoriaId="ConfirmacionCompra" />} />
           <Route path="/perfil" element={<Cliente /> } />
         </Route>
 
@@ -59,6 +58,7 @@ function App() {
           <Route path="/admin/AgregarAdmin" element={<ProtectedRoute><AgregarAdmin /></ProtectedRoute>} />
           <Route path="/admin/EditarUsuario/:id_usuario" element={<ProtectedRoute><EditarUsuario /></ProtectedRoute>} />
           <Route path="/admin/Perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
+          <Route path="/admin/pedidos" element={<ProtectedRoute><Pedidos /></ProtectedRoute>} />
         </Route>
       </Routes>
     </div>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import './inicio.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import fotoEJMISA from '../../images/publico/fotoEJMISA.jpg';

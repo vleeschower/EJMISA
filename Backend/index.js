@@ -6,6 +6,8 @@ const productosRouter = require('./routes/productos');
 const categoriasRouter = require('./routes/categorias'); 
 const UsersRoutes = require('./routes/usuarios')
 const AdminUsuarios = require('./routes/admin_usuarios')
+const compraRouter = require('./routes/compra')
+const pedidosRouter = require('./routes/pedidos');
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -21,6 +23,8 @@ app.use('/imagenes', express.static(path.join(__dirname, 'imagenes_productos')))
 app.use('/api/productos', productosRouter);
 app.use('/api/categorias', categoriasRouter); 
 app.use('/api/admin_usuarios', AdminUsuarios);
+app.use('/api/compra', compraRouter);
+app.use('/api/pedidos', pedidosRouter); 
 
 //ruta registro y login
 app.use('/api/usuarios', UsersRoutes);

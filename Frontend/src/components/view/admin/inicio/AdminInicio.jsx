@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AdminInicio = () => {
@@ -35,6 +34,17 @@ const AdminInicio = () => {
                 <h3 className='fs-4'>Usuarios</h3>
               </div>
               <i className='bi bi-people p-3 fs-1'></i>
+            </div>
+          </Link>
+        </div>
+
+        <div className='col-12 col-sm-6 col-md-4 col-lg-3 p-2'>
+          <Link to="/admin/pedidos" className='text-decoration-none'>
+            <div className='p-3 bg-white shadow-sm d-flex justify-content-between align-items-center rounded'>
+              <div>
+                <h3 className='fs-4'>Pedidos</h3>
+              </div>
+              <i className='bi bi-cart p-3 fs-1'></i>
             </div>
           </Link>
         </div>
