@@ -8,6 +8,7 @@ const Cliente = () => {
   const [nombre, setNombre] = useState('');   
   const [correo, setCorreo] = useState(''); 
   const [password, setPassword] = useState(''); 
+  const [pedidos, setPedidos] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0); // Desplaza a la parte superior
@@ -33,7 +34,47 @@ const Cliente = () => {
         console.error('Error al obtener el usuario:', error);
       });
 
+       // Obtener los pedidos del usuario
+        axios.get(`http://localhost:3002/api/pedidos/${id_usuario}`)
+        .then(response => {
+          console.log('Pedidos:', response.data);
+          setPedidos(response.data);
+        })
+        .catch(error => {
+          console.error('Error al obtener los pedidos:', error);
+        });
+
   }, []);
+
+   // Función para manejar el clic en "Ver detalles"
+   const verDetalles = (id_ventas) => {
+    axios.get(`http://localhost:3002/api/pedidos/detalle/${id_ventas}`)
+      .then(response => {
+        console.log('Detalles del pedido:', response.data); // Verifica los datos recibidos 
+        if (response.data && response.data.length > 0){
+        Swal.fire({
+          title: 'Detalles del Pedido',
+          html: `
+            <ul>
+              ${response.data.map(detalle => `
+                <li>
+                  Producto: ${detalle.producto} <br/>
+                  Cantidad: ${detalle.cantidad} <br/>
+                  Precio unitario: $${detalle.precio_unitario} <br/>
+                  Subtotal: $${detalle.sub_total}
+                </li>
+              `).join('')}
+            </ul>
+          `,
+          confirmButtonText: 'Cerrar'
+        });
+      } else { 
+        console.error('No se encontraron detalles para este pedido.'); }
+      })
+      .catch(error => {
+        console.error('Error al obtener los detalles del pedido:', error);
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -96,7 +137,7 @@ const Cliente = () => {
             <div className="mb-3">
               <label htmlFor="password" className="form-label">Contraseña</label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
                 id="password"
                 value={password}
@@ -119,14 +160,31 @@ const Cliente = () => {
             <tr>
               <th>Pedido</th>
               <th>Estado</th>
+              <th>Total</th>
               <th>Detalles</th>
             </tr>
           </thead>
           <tbody>
-            <td>Sin pedido</td>
-            <td>Sin Estado</td>
-            <td>Sin Detalles</td>
-          </tbody>
+          {pedidos.length > 0 ? pedidos.map((pedido, index) => (
+            <tr key={index}>
+              <td>{pedido.pedido}</td>
+              <td>{pedido.estado}</td>
+              <td>${pedido.total}</td>
+              <td>
+                <button
+                  className="btn btn-success"
+                  onClick={() => verDetalles(pedido.pedido)}
+                >
+                  Ver detalles
+                </button>
+              </td>
+            </tr>
+          )) : (
+            <tr>
+              <td colSpan="4" className="text-center">Sin pedidos</td>
+            </tr>
+          )}
+        </tbody>
         </table>
       </div>
     </div>

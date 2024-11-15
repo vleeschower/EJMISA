@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import './productos.css';
 
 const ProductosClientes = () => {
@@ -6,11 +7,14 @@ const ProductosClientes = () => {
   const [productosSeleccionados, setProductosSeleccionados] = useState({});
   const [total, setTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [compraExitosa, setCompraExitosa] = useState(false);
+  const [showCart, setShowCart] = useState(false); // Controla la visibilidad del carrito flotante
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     fetchProductos();
+
+    const user = localStorage.getItem('user');
+    console.log('Usuario en localStorage:', user);
+    setIsAuthenticated(!!user); // Verifica si el usuario está en localStorage
   }, []);
 
   const fetchProductos = async () => {
@@ -25,7 +29,12 @@ const ProductosClientes = () => {
 
   const handleAddProduct = (producto) => {
     if (!isAuthenticated) {
-      alert('¡Por favor, regístrate para agregar un producto!');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Por favor, inicia sesión para agregar un producto al carrito.',
+        confirmButtonText: 'Aceptar',
+      });
       return;
     }
 
@@ -38,80 +47,125 @@ const ProductosClientes = () => {
   };
 
   const handleRemoveProduct = (producto) => {
-    if (!isAuthenticated) {
-      alert('¡Por favor, regístrate para quitar un producto!');
-      return;
-    }
-
     const cantidadActual = productosSeleccionados[producto.id] || 0;
-    if (cantidadActual > 0) {
-      const nuevaCantidad = cantidadActual - 1;
+    if (cantidadActual > 1) {
       setProductosSeleccionados({
         ...productosSeleccionados,
-        [producto.id]: nuevaCantidad,
+        [producto.id]: cantidadActual - 1,
       });
+      setTotal(total - producto.precio);
+    } else {
+      const updatedSelection = { ...productosSeleccionados };
+      delete updatedSelection[producto.id];
+      setProductosSeleccionados(updatedSelection);
       setTotal(total - producto.precio);
     }
   };
 
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-    console.log('Usuario autenticado');
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setProductosSeleccionados({});
-    setTotal(0);
-    console.log('Usuario cerró sesión');
-  };
-
   const handleBuy = async () => {
-    if (total === 0) {
-      alert('¡No has agregado ningún producto al carrito!');
+    if (!isAuthenticated) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Por favor, inicia sesión para realizar una compra.',
+        confirmButtonText: 'Aceptar',
+      });
       return;
     }
-
+  
+    if (total === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Carrito vacío',
+        text: '¡No has agregado ningún producto al carrito!',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
+  
+    // Obtener el usuario del localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('Usuario obtenido:', user);
+    const id_usuario = user ? user.id_usuario : null;
+  
+    if (!id_usuario) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Usuario no encontrado',
+        text: 'No se pudo obtener el usuario para realizar la compra.',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
+  
+    // Crear el arreglo de productos
+    const productosParaCompra = Object.keys(productosSeleccionados).map(id => {
+      const producto = productos.find(prod => prod.id === parseInt(id));
+      return { id_producto: producto.id, cantidad: productosSeleccionados[id] };
+    });
+  
+    // Enviar los datos al backend
     try {
-      const response = await fetch('http://localhost:3002/api/compras/comprar', {
+      const response = await fetch('http://localhost:3002/api/compra/compra', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          usuarioId: 1, // Ajusta el ID del usuario según tu lógica de autenticación
-          productosSeleccionados,
-          total,
-        }),
+        body: JSON.stringify({ id_usuario, productos: productosParaCompra }),
       });
-
+  
       const data = await response.json();
-      if (data.message === 'Compra registrada exitosamente') {
-        setCompraExitosa(true);
+  
+      if (response.ok) {
+        // Si la compra es exitosa, vaciar el carrito y mostrar mensaje
         setProductosSeleccionados({});
         setTotal(0);
+        Swal.fire({
+          icon: 'success',
+          title: 'Compra exitosa',
+          text: '¡Gracias por tu compra!',
+          confirmButtonText: 'Aceptar',
+        });
+        setShowCart(false);
       } else {
-        alert('Hubo un problema al realizar la compra');
+        // Mostrar error en caso de fallo
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en la compra',
+          text: data.message || 'Hubo un problema al realizar la compra.',
+          confirmButtonText: 'Aceptar',
+        });
       }
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      console.error('Error al realizar la compra:', error);
-      alert('Hubo un problema al realizar la compra');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de conexión',
+        text: 'No se pudo conectar con el servidor.',
+        confirmButtonText: 'Aceptar',
+      });
     }
+  };
+
+  // Función para manejar la apertura del carrito
+  const openCart = () => {
+    if (!isAuthenticated) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Necesitas iniciar sesión para ver el carrito y terminar la compra.',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
+
+    setShowCart(true); // Abre el carrito si está autenticado
   };
 
   return (
     <div className="container my-5">
       <h2 className="text-auto mb-3">PRODUCTOS</h2>
       <hr className="mb-4" />
-
-      <button onClick={handleLogin} className="btn btn-success mx-1">Comenzar Compra</button>
-      <button onClick={handleLogout} className="btn btn-danger mx-1">Parar Compra</button>
-
-      {compraExitosa && (
-        <div className="alert alert-success text-center">
-          ¡Compra exitosa!
-        </div>
-      )}
 
       <div className="productos-container">
         {productos.map((producto) => (
@@ -124,19 +178,8 @@ const ProductosClientes = () => {
             <div className="producto-cantidad">
               <span>Cantidad: {productosSeleccionados[producto.id] || 0}</span>
               <div className="botones">
-                <button
-                  className="boton-agregar"
-                  onClick={() => handleAddProduct(producto)}
-                  disabled={!isAuthenticated}
-                >
+                <button className="boton-agregar" onClick={() => handleAddProduct(producto)}>
                   Agregar
-                </button>
-                <button
-                  className="boton-quitar"
-                  onClick={() => handleRemoveProduct(producto)}
-                  disabled={!isAuthenticated || !productosSeleccionados[producto.id]}
-                >
-                  Quitar
                 </button>
               </div>
             </div>
@@ -144,14 +187,41 @@ const ProductosClientes = () => {
         ))}
       </div>
 
-      <div className="fixed-bottom p-3">
-        <div className="comprar-container">
-          <h3>Total: ${total}</h3>
-          <button onClick={handleBuy} className="btn btn-primary" disabled={total === 0}>
-            Comprar
-          </button>
+      {/* Botón para abrir el carrito flotante */}
+      <button className="btn btn-secondary fixed-bottom m-3 fw-bolder" onClick={openCart}>
+        Ver Carrito / Terminar Compra
+      </button>
+
+      {/* Carrito flotante */}
+      {showCart && (
+        <div className="cart-modal">
+          <div className="cart-content">
+            <h4>Carrito de Compras</h4>
+            <button className="close-cart" onClick={() => setShowCart(false)}>
+              X
+            </button>
+            <ul className='p-0'>
+              {Object.keys(productosSeleccionados).map((id) => {
+                const producto = productos.find((prod) => prod.id === parseInt(id));
+                const cantidad = productosSeleccionados[id];
+                return (
+                  <li key={id} className="cart-item m-2">
+                    <span className='m-1'>{producto.producto}</span>
+                    <span className='m-1'>Precio: ${producto.precio}</span>
+                    <span className='m-1'>Cantidad: {cantidad}</span>
+                    <button onClick={() => handleAddProduct(producto)}>+</button>
+                    <button onClick={() => handleRemoveProduct(producto)}>-</button>
+                  </li>
+                );
+              })}
+            </ul>
+            <h4>Total: ${total}</h4>
+            <button className="btn btn-primary" onClick={handleBuy}>
+              Terminar Compra
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

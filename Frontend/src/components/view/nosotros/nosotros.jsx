@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import './nosotros.css'
 import foto2 from '../../images/publico/foto2.jpg'
 import tornilleria from '../../images/publico/tornilleria.jpg'

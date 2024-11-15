@@ -1,4 +1,3 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './dashboard.css'
@@ -38,6 +37,11 @@ const Dashboard = ({ handleLinkClick }) => {
         <Link to="/admin/usuarios" className="list-group-item py-2" onClick={handleClick}>
           <i className="bi bi-people fs-3 me-3"></i>
           <span>Usuarios</span>
+        </Link>
+
+        <Link to="/admin/pedidos" className="list-group-item py-2" onClick={handleClick}>
+          <i className="bi bi-cart fs-3 me-3"></i>
+          <span>Pedidos</span>
         </Link>
 
       </div>
