@@ -28,9 +28,9 @@ app.use('/api/pedidos', pedidosRouter);
 
 //ruta registro y login
 app.use('/api/usuarios', UsersRoutes);
-app.use('/api/compras', comprasRouter); // Asigna la ruta para compras
 
 // Iniciar el servidor
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
+
